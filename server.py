@@ -20,12 +20,6 @@ def skeleton(**kwargs):
 
 @app.route('/<path:path>', methods=['GET'])
 def static_proxy(path):
-    # mime = 'text/html'
-    # if path.endswith(".js"):
-    #    mime = 'text/javascript'
-    # resp = app.make_response(send_from_directory(document_root, path))
-    # resp.mimetype = mime
-    # return resp
     return send_from_directory(document_root, path)
 
 
