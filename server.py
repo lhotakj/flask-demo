@@ -34,8 +34,10 @@ def slack_event():
         return skeleton(title="Error",
                         content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     print(str(request))
+    event_data = json.loads(request.data.decode('utf-8'))
+    print(str(event_data))
     if request.form['token'] == verification_token:
-        event_data = json.loads(request.data.decode('utf-8'))
+
         print(str(event_data))
         if "challenge" in event_data:
             return make_response(event_data.get("challenge"), 200, {"content_type": "application/json"})
