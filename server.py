@@ -1,13 +1,18 @@
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
+from slackclient import SlackClient
+
 
 import os
 import json
 
 document_root = os.path.dirname(os.path.realpath(__file__))
 
-# https://api.slack.com/apps/ATPCVD9JN/general?
+# https://api.slack.com/apps/ATPCVD9JN/general?  tokens
+# https://api.slack.com/apps/ATPCVD9JN/event-subscriptions? - event subs
 # https://dashboard.heroku.com/apps/jarda-demo/settings
 verification_token = os.environ['VERIFICATION_TOKEN']
+slack_token = os.environ["SLACK_API_TOKEN"]
+
 
 filename = '/tmp/webhookPayloads.txt'  # file that webhook payloads will be written
 
@@ -34,14 +39,23 @@ def slack_event():
         return skeleton(title="Error",
                         content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     event_data = json.loads(request.data.decode('utf-8'))
-    print(str(event_data))
     if event_data['token'] == verification_token:
         print('authorized')
         if "challenge" in event_data:
             return make_response(event_data.get("challenge"), 200, {"content_type": "application/json"})
 
-        payload = {'text': 'I got :```' + str(event_data) + '```'}
-        return jsonify(payload)
+        if "event" in event_data and "type" in event_data["event"] and event_data["event"]["type"] == "aap_mention":
+            my_command = event_data["event"]["text"]
+            my_channel = event_data["event"]["channel"]
+            print("mention:" + my_command)
+            sc = SlackClient(slack_token)
+            sc.api_call(
+                "chat.postMessage",
+                channel=my_channel,
+                text="ok dude: `my_command`"
+            )
+            # payload = {'text': 'I got :```' + str(event_data) + '```'}
+            # return jsonify(payload)
 
 
 @app.route('/api/slack/command/<string:command>', methods=['POST', 'GET'])
