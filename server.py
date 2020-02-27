@@ -13,6 +13,7 @@ document_root = os.path.dirname(os.path.realpath(__file__))
 # https://dashboard.heroku.com/apps/jarda-demo/settings
 verification_token = os.environ['VERIFICATION_TOKEN']
 slack_token = os.environ["SLACK_API_TOKEN"]
+client = slack.WebClient(token=slack_token)
 
 filename = '/tmp/webhookPayloads.txt'  # file that webhook payloads will be written
 
@@ -53,7 +54,6 @@ def slack_event():
                 my_channel = event_data["event"]["channel"]
                 my_user = event_data["event"]["user"]
                 print("mention:" + my_command)
-                client = slack.WebClient(token=slack_token)
                 client.chat_postEphemeral(
                     channel=my_channel,
                     text="OK, so you wanted `" + my_command + "`? Give me a second or two",
@@ -67,7 +67,7 @@ def slack_event():
                 )
                 # payload = {'text': 'I got :```' + str(event_data) + '```'}
                 # return jsonify(payload)
-    return make_response(event_data.get("challenge"), 200, {"content_type": "application/json"})
+    return True
 
 
 @app.route('/api/slack/command/<string:command>', methods=['POST', 'GET'])
