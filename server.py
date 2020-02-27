@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
 import slack
 
-
 import os
 import json
 
@@ -12,7 +11,6 @@ document_root = os.path.dirname(os.path.realpath(__file__))
 # https://dashboard.heroku.com/apps/jarda-demo/settings
 verification_token = os.environ['VERIFICATION_TOKEN']
 slack_token = os.environ["SLACK_API_TOKEN"]
-
 
 filename = '/tmp/webhookPayloads.txt'  # file that webhook payloads will be written
 
@@ -55,7 +53,7 @@ def slack_event():
             client = slack.WebClient(token=slack_token)
             client.chat_postEphemeral(
                 channel=my_channel,
-                text="Hello silently from your app! :tada:",
+                text="OK, so you wanted `" + my_command + "`?",
                 user=my_user
             )
             # payload = {'text': 'I got :```' + str(event_data) + '```'}
