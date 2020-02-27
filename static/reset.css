@@ -32,6 +32,7 @@ font-family: 'Playfair Display', 'Arial' ;
 }
 
 h1 { font-size: 26px; margin-bottom: 10px; }
+h2 { font-size: 23px; margin-bottom: 10px; color: #111111}
 
 /* make sure to set some focus styles for accessibility */
 :focus {

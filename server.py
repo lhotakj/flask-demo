@@ -73,7 +73,16 @@ def how():
 
 @app.route('/')
 def root():
-    return skeleton(title='home', content="hello")
+    return skeleton(title='home', content="""
+    <h2>About</h2>
+    This is a simple flask web demo hosted on Heroku using basic templates and API end point for Slack bot.
+    
+    <h2>Slack bot</h2>
+    <b>How to use:</b>
+    <br /> - Join workspace <b><a href='https://jardalhotak.slack.com'>https://jardalhotak.slack.com</a><b>
+    <br />Type <i>/instances my</i> or <i>/instances all</i> to see test messages sent by the bot
+    <br /><br />Enjoy :)     
+""")
 
 
 if __name__ == "__main__":
