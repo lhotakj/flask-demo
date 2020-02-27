@@ -36,6 +36,7 @@ def slack_command(command):
     if request.form['token'] == verification_token:
         if command == "instances":
             # ImmutableMultiDict([('token', '****'), ('team_id', 'TFFAC0JNA'), ('team_domain', 'jardalhotak'), ('channel_id', 'CFD67NJ64'), ('channel_name', 'general'), ('user_id', 'UFFAC0K62'), ('user_name', 'jarda'), ('command', '/my-instances'), ('text', 'my'), ('response_url', 'https://hooks.slack.com/commands/**'), ('trigger_id', '***')])
+            payload = {'text': 'What instance dude? type `/instances my` or `/instances all`'}
             if request.form['text'] == "my":
                 payload = {'text': 'Hey dude, this is a list of *your* instances (@' + request.form['user_name'] + '):'}
             if request.form['text'] == "all":
@@ -82,7 +83,7 @@ def root():
     - Join workspace https://jardalhotak.slack.com
     Type /instances my or /instances all to see test messages sent by the bot.
     Enjoy :)     
-"""))
+""")
 
 
 if __name__ == "__main__":
