@@ -67,7 +67,7 @@ def slack_event():
                 )
                 # payload = {'text': 'I got :```' + str(event_data) + '```'}
                 # return jsonify(payload)
-    return True
+    return make_response({}, 200, {"content_type": "application/json"})
 
 
 @app.route('/api/slack/command/<string:command>', methods=['POST', 'GET'])
