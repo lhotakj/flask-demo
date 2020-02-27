@@ -34,10 +34,12 @@ def slack_command(command):
         return skeleton(title="Error",
                         content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     if request.form['token'] == verification_token:
-        if command == "my-instances":
-            payload = {
-                'text': 'Hey dude, this is your list of instances.\n This is the request sent from Slack: ```' + str(
-                    request.form) + "```"}
+        if command == "instances":
+            # ImmutableMultiDict([('token', '****'), ('team_id', 'TFFAC0JNA'), ('team_domain', 'jardalhotak'), ('channel_id', 'CFD67NJ64'), ('channel_name', 'general'), ('user_id', 'UFFAC0K62'), ('user_name', 'jarda'), ('command', '/my-instances'), ('text', 'my'), ('response_url', 'https://hooks.slack.com/commands/**'), ('trigger_id', '***')])
+            if request.form['text'] == "my":
+                payload = {'text': 'Hey dude, this is a list of *your* instances (@' + request.form['user_name'] + '):'}
+            if request.form['text'] == "all":
+                payload = {'text': 'Hey dude, this is a list of *all* instances:'}
             return jsonify(payload)
 
 
