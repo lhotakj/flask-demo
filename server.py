@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
-from slackclient import SlackClient
+import slack
 
 
 import os
@@ -44,15 +44,18 @@ def slack_event():
         if "challenge" in event_data:
             return make_response(event_data.get("challenge"), 200, {"content_type": "application/json"})
 
+        # got:
+        # {'token': '****', 'team_id': 'TFFAC0JNA', 'api_app_id': 'ATPCVD9JN', 'event': {'client_msg_id': 'b874556d-3bda-408f-93a8-2b3ac5a41780', 'type': 'app_mention', 'text': '<@UTQNR2V6X> deploy', 'user': 'UFFAC0K62', 'ts': '1582823443.002000', 'team': 'TFFAC0JNA', 'blocks': [{'type': 'rich_text', 'block_id': '+6La', 'elements': [{'type': 'rich_text_section', 'elements': [{'type': 'user', 'user_id': 'UTQNR2V6X'}, {'type': 'text', 'text': ' deploy'}]}]}], 'channel': 'CFD67NJ64', 'event_ts': '1582823443.002000'}, 'type': 'event_callback', 'event_id': 'EvULDG0JBX', 'event_time': 1582823443, 'authed_users': ['UTQNR2V6X']}
         if "event" in event_data and "type" in event_data["event"] and event_data["event"]["type"] == "aap_mention":
             my_command = event_data["event"]["text"]
             my_channel = event_data["event"]["channel"]
+            my_user = event_data["event"]["user"]
             print("mention:" + my_command)
-            sc = SlackClient(slack_token)
-            sc.api_call(
-                "chat.postMessage",
+            client = slack.WebClient(token=slack_token)
+            client.chat_postEphemeral(
                 channel=my_channel,
-                text="ok dude: `my_command`"
+                text="Hello silently from your app! :tada:",
+                user=my_user
             )
             # payload = {'text': 'I got :```' + str(event_data) + '```'}
             # return jsonify(payload)
