@@ -27,8 +27,10 @@ def skeleton(**kwargs):
 def static_proxy(path):
     return send_from_directory(document_root, path)
 
-@app.route('/api/slack/<string:command>', methods=['POST'])
+@app.route('/api/slack/<string:command>', methods=['POST','GET'])
 def slack_command(command):
+    if request.method == 'GET':
+        return skeleton(title="Error", content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     if request.form['token'] == verification_token:
         if command == "my-instances"
             payload = {'text': 'Hey dude, this is your list of instances'}
