@@ -1,8 +1,13 @@
-from flask import Flask, request, render_template, send_from_directory, make_response
+from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
+
 import os
 import json
 
 document_root = os.path.dirname(os.path.realpath(__file__))
+
+# https://api.slack.com/apps/ATPCVD9JN/general?
+# https://dashboard.heroku.com/apps/jarda-demo/settings
+verification_token = os.environ['VERIFICATION_TOKEN']
 
 filename = '/tmp/webhookPayloads.txt'  # file that webhook payloads will be written
 
@@ -21,6 +26,14 @@ def skeleton(**kwargs):
 @app.route('/<path:path>', methods=['GET'])
 def static_proxy(path):
     return send_from_directory(document_root, path)
+
+@app.route('/api/slack/<string:command>', methods=['POST'])
+def slack_command(command):
+    if request.form['token'] == verification_token:
+        if command == "my-instances"
+            payload = {'text': 'Hey dude, this is your list of instances'}
+            return jsonify(payload)
+
 
 
 @app.route('/api/<string:type>', methods=['POST', 'GET'])
