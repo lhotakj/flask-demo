@@ -29,7 +29,7 @@ def static_proxy(path):
 
 
 @app.route('/api/slack/event', methods=['POST', 'GET'])
-def slack_command(command):
+def slack_event():
     if request.method == 'GET':
         return skeleton(title="Error",
                         content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
