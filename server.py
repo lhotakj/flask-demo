@@ -36,9 +36,17 @@ def index():
         return '{"success":"true"}'
 
 
-@app.route('/home/<name>')
-def home(name):
-    return skeleton(title=name, content="cau")
+@app.route('/my-instances')
+def myinstances():
+    return skeleton(title="My instances", content="list my instances TBD")
+
+@app.route('/monitoring')
+def monitoring():
+    return skeleton(title="Monitoring", content="monitoring")
+
+@app.route('/how-to')
+def how():
+    return skeleton(title="How to", content="How to")
 
 
 @app.route('/')
