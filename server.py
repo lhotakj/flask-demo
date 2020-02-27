@@ -36,7 +36,8 @@ def slack_command(command):
     if request.form['token'] == verification_token:
         if command == "my-instances":
             payload = {
-                'text': 'Hey dude, this is your list of instances.\n This is the request: ```' + str(request) + "```"}
+                'text': 'Hey dude, this is your list of instances.\n This is the request sent from Slack: ```' + str(
+                    request.form) + "```"}
             return jsonify(payload)
 
 
