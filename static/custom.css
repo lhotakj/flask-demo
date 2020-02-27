@@ -9,7 +9,7 @@
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
-  background-image: url("/static/side-nav-bg.png");
+  background-image: url("side-nav-bg.png");
   background-repeat: no-repeat;
 }
 
