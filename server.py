@@ -35,7 +35,8 @@ def slack_command(command):
                         content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     if request.form['token'] == verification_token:
         if command == "my-instances":
-            payload = {'text': 'Hey dude, this is your list of instances'}
+            payload = {
+                'text': 'Hey dude, this is your list of instances.\n This is the request: ```' + str(request) + "```"}
             return jsonify(payload)
 
 
