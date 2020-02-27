@@ -28,7 +28,23 @@ def static_proxy(path):
     return send_from_directory(document_root, path)
 
 
-@app.route('/api/slack/<string:command>', methods=['POST', 'GET'])
+@app.route('/api/slack/event', methods=['POST', 'GET'])
+def slack_command(command):
+    if request.method == 'GET':
+        return skeleton(title="Error",
+                        content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
+
+    if request.form['token'] == verification_token:
+        event_data = json.loads(request.data.decode('utf-8'))
+
+        if "challenge" in event_data:
+            return make_response(event_data.get("challenge"), 200, {"content_type": "application/json"})
+
+        payload = {'text': 'I got :```' + str(event_data) + '```'}
+        return jsonify(payload)
+
+
+@app.route('/api/slack/command/<string:command>', methods=['POST', 'GET'])
 def slack_command(command):
     if request.method == 'GET':
         return skeleton(title="Error",
