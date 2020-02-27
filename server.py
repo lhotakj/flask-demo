@@ -27,15 +27,16 @@ def skeleton(**kwargs):
 def static_proxy(path):
     return send_from_directory(document_root, path)
 
-@app.route('/api/slack/<string:command>', methods=['POST','GET'])
+
+@app.route('/api/slack/<string:command>', methods=['POST', 'GET'])
 def slack_command(command):
     if request.method == 'GET':
-        return skeleton(title="Error", content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
+        return skeleton(title="Error",
+                        content="Sorry dude but this is an API endpoint and required to be called with POST from SLACK")
     if request.form['token'] == verification_token:
-        if command == "my-instances"
+        if command == "my-instances":
             payload = {'text': 'Hey dude, this is your list of instances'}
             return jsonify(payload)
-
 
 
 @app.route('/api/<string:type>', methods=['POST', 'GET'])
@@ -55,9 +56,11 @@ def index():
 def myinstances():
     return skeleton(title="My instances", content="list my instances TBD")
 
+
 @app.route('/monitoring')
 def monitoring():
     return skeleton(title="Monitoring", content="monitoring")
+
 
 @app.route('/how-to')
 def how():
@@ -74,4 +77,4 @@ if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=5001, threaded=True, debug=True)  # will listen on port 5000
     app.run(host='0.0.0.0', threaded=True, debug=True)  # will listen on port 5000
 
-#https://medium.com/the-andela-way/deploying-a-python-flask-app-to-heroku-41250bda27d0
+# https://medium.com/the-andela-way/deploying-a-python-flask-app-to-heroku-41250bda27d0
