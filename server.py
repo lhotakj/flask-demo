@@ -1,6 +1,7 @@
 import time
 
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
+from flask import flash, redirect, session, abort
 import slack
 
 import os
@@ -23,6 +24,7 @@ else:
     append_write = 'w'  # make a new file if not
 
 app = Flask(__name__)
+app.secret_key = os.urandom(12)
 
 
 def skeleton(template, **kwargs):
@@ -116,7 +118,26 @@ def how():
 
 @app.route('/')
 def root():
-    return skeleton(template="home.html", title="Home")
+    return skeleton(template="overview.html", title="Overview")
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session['logged_in'] = False
+    session['username'] = None
+    return skeleton(template="logout.html", title="logout")
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def do_admin_login():
+    if request.form and 'password' in request.form and 'username' in request.form:
+        if request.form['password'] == 'password' and request.form['username'] == 'admin':
+            session['logged_in'] = True
+            session['username'] = request.form['username']
+            session['full_name'] = "Antonius Blbus"
+        else:
+            flash('wrong password!')
+    return skeleton(template="login.html", title="login")
 
 
 if __name__ == "__main__":

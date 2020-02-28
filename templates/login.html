@@ -1,0 +1,32 @@
+{% extends 'master.html' %}
+{% block header %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block head_style %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<form action="/login" method="POST">
+<div class="login">
+
+    use your OAAD credentials (but for test admin / password)
+<div class="login-screen">
+<div class="app-title">
+</div>
+<div class="login-form">
+<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="username" name="username">
+<label class="login-field-icon fui-user" for="login-name"></label></div>
+<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="password" name="password">
+<label class="login-field-icon fui-lock" for="login-pass"></label></div>
+<input type="submit" value="log in" class="btn btn-primary btn-large btn-block">
+
+</div>
+</div>
+</div>
+</form>
+{% endblock %}
