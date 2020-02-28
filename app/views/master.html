@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %} | kratos ui</title>
+    <meta name="description" content="web ui">
+    <meta name="author" content="jaroslav lhotak">
+    {% block head_style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='custom.css') }}">
+    {% endblock %}
+    {% block head_script %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="{{ url_for('static', filename='fonts.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+<div class="sidenav">
+    <a href=""><i class="fa fa-tachometer fa-sm"></i> system overview</a>
+    <a href="how-to"><i class="fas fa-question-circle"></i> how to</a>
+    <a href="monitoring"><i class="fas fa-wave-square"></i> monitoring</a>
+
+    {% if session.get('logged_in') %}
+    <header>my cloud</header>
+    <a href="my-instances"><i class="fas fa-server fa-sm"></i> my instances</a>
+    {% endif %}
+
+</div>
+
+<div class="main">
+
+    <div class="navbar">
+    {% if not session.get('logged_in') %}
+        <a href="/login"> <i class="fas fa-user fa-sm"></i> login</a>
+    {% else %}
+        <a href="/logout"> <i class="fas fa-power-off fa-sm"></i> logout</a>
+        <span title="a"> <i class="fa fa-user-circle-o"></i>{{ session.get('username') }} ({{ session.get('full_name') }})</span>
+    {% endif %}
+    </div>
+
+    <div class="main_">
+        <h1>{% block header %}{% endblock %}</h1>
+        <p>
+            {% block content %}{% endblock %}
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -6,8 +6,10 @@ import slack
 
 import os
 import json
+import config
 
 document_root = os.path.dirname(os.path.realpath(__file__))
+print(config)
 
 # https://api.slack.com/apps/ATPCVD9JN/general?  tokens
 # https://api.slack.com/apps/ATPCVD9JN/event-subscriptions? - event subs
@@ -23,7 +25,7 @@ if os.path.exists(filename):
 else:
     append_write = 'w'  # make a new file if not
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="views")
 app.secret_key = os.urandom(12)
 
 

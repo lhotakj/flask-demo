@@ -86,3 +86,7 @@ i.fas, i.fab, i.fa {
     filter: alpha(opacity=50); // IE 5-7
     opacity: 0.5;
   }
+
+.error {
+color: red;
+}
