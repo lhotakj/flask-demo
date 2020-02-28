@@ -45,8 +45,7 @@ class ApiController:
                         text="OK, so you wanted `" + my_command + "`? Give me a second or two",
                         user=my_user
                     )
-                    print("slack_event")
-                    time.sleep(2)
+                    print("slack_event process")
                     self.client.chat_postEphemeral(
                         channel=my_channel,
                         text="Done!",
