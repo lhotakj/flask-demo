@@ -23,8 +23,11 @@ class ApiController:
     def __init__(self):
         pass
 
-    @helper.only_get_method
+#    @helper.only_get_method
     def slack_event(self):
+        if request.method == 'GET':
+            return helper.skeleton(template="api-error.html", title="API error")
+
         event_data = json.loads(request.data.decode('utf-8'))
         if event_data['token'] == self.config.verification_token:
             print('authorized')
@@ -54,8 +57,11 @@ class ApiController:
                     print("slack_event done")
         return make_response(jsonify({'success': True}), 200, {"content_type": "application/json"})
 
-    @helper.only_get_method
+#    @helper.only_get_method
     def slack_command(self, command):
+        if request.method == 'GET':
+            return helper.skeleton(template="api-error.html", title="API error")
+
         if request.form['token'] == self.config.verification_token:
             if command == "instances":
                 # ImmutableMultiDict([('token', '****'), ('team_id', 'TFFAC0JNA'), ('team_domain', 'jardalhotak'), ('channel_id', 'CFD67NJ64'), ('channel_name', 'general'), ('user_id', 'UFFAC0K62'), ('user_name', 'jarda'), ('command', '/my-instances'), ('text', 'my'), ('response_url', 'https://hooks.slack.com/commands/**'), ('trigger_id', '***')])
