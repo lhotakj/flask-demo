@@ -65,5 +65,8 @@
 
 i.fas,
   i.fab {
-    padding-right: 5px
+    padding-right: 5px;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; // IE8
+    filter: alpha(opacity=50); // IE 5-7
+    opacity: 0.5;
   }

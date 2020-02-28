@@ -25,13 +25,13 @@ else:
 app = Flask(__name__)
 
 
-def skeleton(**kwargs):
-    return render_template('masterpage.html', **kwargs)
+def skeleton(template, **kwargs):
+    return render_template(template_name_or_list=template, **kwargs)
 
 
 @app.route('/<path:path>', methods=['GET'])
 def static_proxy(path):
-    return send_from_directory(document_root, path, cache_timeout=30*60)
+    return send_from_directory(document_root, path, cache_timeout=30 * 60)
 
 
 @app.route('/api/slack/event', methods=['POST', 'GET'])
@@ -101,31 +101,22 @@ def index():
 
 @app.route('/my-instances')
 def myinstances():
-    return skeleton(title="My instances", content="list my instances TBD")
+    return skeleton(template="my-instances.html", title="my instances")
 
 
 @app.route('/monitoring')
 def monitoring():
-    return skeleton(title="Monitoring", content="monitoring")
+    return skeleton(template="monitoring.html", title="monitoring")
 
 
 @app.route('/how-to')
 def how():
-    return skeleton(title="How to", content="How to")
+    return skeleton(template="how-to.html", title="how to")
 
 
 @app.route('/')
 def root():
-    return skeleton(title='home', content="""
-    About
-    This is a simple flask web demo hosted on Heroku using basic templates and API end point for Slack bot.
-    
-    Slack bot
-    How to use:
-    - Join workspace https://jardalhotak.slack.com
-    Type /instances my or /instances all to see test messages sent by the bot.
-    Enjoy :)     
-""")
+    return skeleton(template="home.html", title="Home")
 
 
 if __name__ == "__main__":
