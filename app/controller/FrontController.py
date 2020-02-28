@@ -34,16 +34,16 @@ class FrontController:
         session['username'] = None
         return helper.skeleton(template="logout.html", title="logout")
 
-    # @staticmethod
-    # def do_admin_login():
-    #     if request.form and 'password' in request.form and 'username' in request.form:
-    #         if request.form['password'] == 'password' and request.form['username'] == 'admin':
-    #             session['logged_in'] = True
-    #             session['username'] = request.form['username']
-    #             session['full_name'] = "Antonius Blbus"
-    #         else:
-    #             flash('wrong password!')
-    #     return helper.skeleton(template="login.html", title="login")
+    @staticmethod
+    def do_admin_login():
+        if request.form and 'password' in request.form and 'username' in request.form:
+            if request.form['password'] == 'password' and request.form['username'] == 'admin':
+                session['logged_in'] = True
+                session['username'] = request.form['username']
+                session['full_name'] = "Antonius Blbus"
+            else:
+                flash('wrong password!')
+        return helper.skeleton(template="login.html", title="login")
 
 
 front_controller = FrontController()

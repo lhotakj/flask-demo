@@ -30,3 +30,8 @@ def how_to():
 @front.route('/logout', methods=['GET'])
 def logout():
     return front_controller.logout()
+
+
+@front.route('/login', methods=['POST', 'GET'])
+def do_admin_login():
+    return front_controller.do_admin_login()

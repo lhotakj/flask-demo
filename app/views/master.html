@@ -31,12 +31,12 @@
 <div class="main">
 
     <div class="navbar">
-    {% if not session.get('logged_in') %}
+        {% if not session.get('logged_in') %}
         <a href="/login"> <i class="fas fa-user fa-sm"></i> login</a>
-    {% else %}
+        {% else %}
         <a href="/logout"> <i class="fas fa-power-off fa-sm"></i> logout</a>
         <span title="a"> <i class="fa fa-user-circle-o"></i>{{ session.get('username') }} ({{ session.get('full_name') }})</span>
-    {% endif %}
+        {% endif %}
     </div>
 
     <div class="main_">
