@@ -52,7 +52,7 @@ class ApiController:
                         user=my_user
                     )
                     print("slack_event done")
-        return make_response({}, 200, {"content_type": "application/json"})
+        return make_response(jsonify({'success':True}), 200, {"content_type": "application/json"})
 
     @helper.only_get_method
     def slack_command(self, command):
