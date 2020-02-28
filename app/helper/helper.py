@@ -13,6 +13,6 @@ def only_get_method(func):
     def function_wrapper(*args):
         if request.method == 'GET':
             return skeleton(template="api-error.html", title="API error")
-        func(*args)
+        return func(*args)
 
     return function_wrapper
