@@ -31,7 +31,7 @@ def skeleton(**kwargs):
 
 @app.route('/<path:path>', methods=['GET'])
 def static_proxy(path):
-    return send_from_directory(document_root, path)
+    return send_from_directory(document_root, path, cache_timeout=30*60)
 
 
 @app.route('/api/slack/event', methods=['POST', 'GET'])
