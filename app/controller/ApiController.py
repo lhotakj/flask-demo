@@ -45,14 +45,14 @@ class ApiController:
                         text="OK, so you wanted `" + my_command + "`? Give me a second or two",
                         user=my_user
                     )
+                    print("slack_event")
                     time.sleep(2)
                     self.client.chat_postEphemeral(
                         channel=my_channel,
                         text="Done!",
                         user=my_user
                     )
-                    # payload = {'text': 'I got :```' + str(event_data) + '```'}
-                    # return jsonify(payload)
+                    print("slack_event done")
         return make_response({}, 200, {"content_type": "application/json"})
 
     @helper.only_get_method
