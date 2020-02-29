@@ -19,9 +19,26 @@ from app.config import Configuration
 class ApiController:
     config = Configuration.Configuration()
     client = slack.WebClient(token=config.slack_token)
+    _message = None
 
     def __init__(self):
         pass
+
+    def ai(self, command):
+        command = str(command).lower()
+        if "what's up?" in command:
+            return "Just chillin."
+        if "how are you?" in command:
+            return "I'm fine thanks."
+        if "how do you do?" in command:
+            return "Fine, thank you"
+        if "status" in command and "compilation" in command:
+            return "Status of compilation machines is: XXXXX"
+        if "hello" in command:
+            return "Hello, dude"
+        if "hi" in command:
+            return "Hi, dude"
+        return "Sorry, I don't understand :no_mouth:"
 
 #    @helper.only_get_method
     def slack_event(self):
@@ -43,15 +60,15 @@ class ApiController:
                     my_channel = event_data["event"]["channel"]
                     my_user = event_data["event"]["user"]
                     print("mention:" + my_command)
+                    # self.client.chat_postEphemeral(
+                    #     channel=my_channel,
+                    #     text="OK, so you wanted `" + my_command + "`? Give me a second or two",
+                    #     user=my_user
+                    # )
+                    # print("slack_event process")
                     self.client.chat_postEphemeral(
                         channel=my_channel,
-                        text="OK, so you wanted `" + my_command + "`? Give me a second or two",
-                        user=my_user
-                    )
-                    print("slack_event process")
-                    self.client.chat_postEphemeral(
-                        channel=my_channel,
-                        text="Done!",
+                        text=self.ai(my_command),
                         user=my_user
                     )
                     print("slack_event done")
