@@ -26,19 +26,43 @@ class ApiController:
 
     def ai(self, command):
         command = str(command).lower()
-        if "what's up?" in command:
-            return "Just chillin."
-        if "how are you?" in command:
-            return "I'm fine thanks."
-        if "how do you do?" in command:
-            return "Fine, thank you"
         if "status" in command and "compilation" in command:
-            return "Status of compilation machines is: XXXXX"
+            return "Status of compilation machines is:\n ``` .... ```"
+
+        if "rebuild" in command:
+            return "Roger, rebuilding ..."
+
+        if "list" in command and "baselines" in command:
+            return "Here is list of all baselines:\n ``` ... ```"
+
+        if "good to see you" in command:
+            return "Good to see you, too."
+        if "great to see you" in command:
+            return "Great to see you, too."
+        if "nice to see you" in command:
+            return "Nice to see you, too."
+        if "what's up" in command:
+            return "Just chillin."
+        if "what's going on" in command:
+            return "I'm just relaxing."
+        if "how are things" in command:
+            return "Everything's OK, thanks."
+        if "how are you?" in command:
+            return "I'm fine, thanks."
+        if "how do you do?" in command:
+            return "Fine, thank you."
         if "hello" in command:
-            return "Hello, dude"
+            return "Hello, dude!"
         if "hi" in command:
-            return "Hi, dude"
+            return "Hi, dude!"
+        if "hey" in command:
+            return "Hey, dude!"
+        if "howdy" in command:
+            return "Howdy, dude!"
+        if "greetings" in command:
+            return "Greetings!"
         return "Sorry, I don't understand :no_mouth:"
+    # http://www.bannedwordlist.com/lists/swearWords.txt
 
 #    @helper.only_get_method
     def slack_event(self):
