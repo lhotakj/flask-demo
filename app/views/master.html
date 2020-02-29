@@ -5,13 +5,15 @@
     <title>{% block title %}{% endblock %} | kratos ui</title>
     <meta name="description" content="web ui">
     <meta name="author" content="jaroslav lhotak">
+    {% block head_script %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery-3.3.1.js') }}"></script>
+<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
+    <script src="{{ url_for('static', filename='fonts.js') }}"></script>
+    {% endblock %}
     {% block head_style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='reset.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='custom.css') }}">
-    {% endblock %}
-    {% block head_script %}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="{{ url_for('static', filename='fonts.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
     {% endblock %}
 </head>
 

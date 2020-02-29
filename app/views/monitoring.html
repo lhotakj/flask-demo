@@ -2,6 +2,62 @@
 {% block header %}{{ title }}{% endblock %}
 {% block title %}{{ title }}{% endblock %}
 
+{% block head_script %}
+{{ super() }}
+
+<!--https://editor.datatables.net/examples/simple/inTableControls.html-->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='datatables/datatables.min.css') }}"/>
+<script type="text/javascript" src="{{ url_for('static', filename='datatables/datatables.min.js') }}"></script>
+<script>
+
+function get_action(data) {
+ action = ""
+ if (data.status == "running") action = "<a href='/api/ec2/stop/" +  data.instance_id + "'>stop</a>"
+ if (data.status == "stopped") action = "<a href='/api/ec2/start/" +  data.instance_id + "'>start</a>"
+ if (data.status == "terminating") action = ""
+ if (data.status == "starting") action = ""
+ if (data.status == "stopping") action = ""
+ return action
+}
+
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "ajax": '/api/ec2/tags/owner:za577',
+        columns: [
+            { data: "name"  },
+            { data: "instance_id"  },
+            { data: "ami_id" },
+            { data: "owner" },
+            { data: "cpu" },
+            { data: "status" },
+
+            { data: null, render: function ( data, type, row ) {
+                return get_action(data);
+            } }
+        ]
+    } );
+} );
+
+</script>
+{% endblock %}
+
 {% block content %}
-Currently serving x
+<h2>list of all instances running at Kratos framework</h2>
+
+<div style="width:80%" class="small">
+    <table id="example" class="table .table-hover" style="width:100%">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>instance id</th>
+            <th>ami id</th>
+            <th>owner</th>
+            <th>cpu info</th>
+            <th>status</th>
+            <th>action</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
 {% endblock %}

@@ -16,7 +16,7 @@ from app.config import Configuration
 # https://dashboard.heroku.com/apps/jarda-demo/settings
 
 
-class ApiController:
+class ApiSlackController:
     config = Configuration.Configuration()
     client = slack.WebClient(token=config.slack_token)
     _message = None
@@ -115,4 +115,4 @@ class ApiController:
                 return jsonify(payload)
 
 
-api_controller = ApiController()
+api_slack_controller = ApiSlackController()
