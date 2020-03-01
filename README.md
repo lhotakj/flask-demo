@@ -1,12 +1,13 @@
-# flask-demo hosted on heroku
+# MVC Flask demo hosted on heroku
 
-A simple demo MVC flask app being auto-deployed in Heroku, it handles Slack command and Slack events as well as provide a simplified view on AWS instances (skeleton only, no boto3 code)
+A simple demo MVC flask, for handling Slack commands and events and provide a simplified admin consoled to manage AWS instances (skeleton only, no boto3 code) with sample graphs.
 
 _Third party libraries_:
 * jQuery v3.4.1 (https://jquery.org) - local copy
 * Bootstrap v4.4.1 (https://getbootstrap.com/) - local copy 
 * DataTables v1.10.20 (https://datatables.net) - local copy
 * Popper v2 (https://popper.js.org/) - local copy
+* Chart v2.5 (https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js)
 
 ## Running the app
 There are three ways of running the app, it defaults run on port `5000`. Feel free to change it in `./app/config/Configuration.py`, but then you need to update also all the shells!
