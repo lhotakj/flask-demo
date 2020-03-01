@@ -73,6 +73,7 @@
 .main_ {
   margin-left: 20px; /* Same as the width of the sidenav + 20 */
   margin-top:  10px;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-height: 450px) {
@@ -86,6 +87,34 @@ i.fas, i.fab, i.fa {
     filter: alpha(opacity=50); // IE 5-7
     opacity: 0.5;
   }
+
+.main_bottom {
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.main_bottom span {
+  float: left;
+  display: inline;
+  text-align: left;
+  color: #888;
+  padding:0 0 0 0;
+  padding-left:30px;
+  padding-bottom:10px;
+  text-decoration: none;
+  font-size: 10px;
+}
+
+.main_bottom a {
+  color: #666;
+  display: inline;
+  padding:0 0 0 0;
+  text-align: left;
+  font-size: 10px;
+  text-decoration: underline;
+}
 
 .error {
 color: red;

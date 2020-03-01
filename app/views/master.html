@@ -6,14 +6,17 @@
     <meta name="description" content="web ui">
     <meta name="author" content="jaroslav lhotak">
     {% block head_script %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery-3.3.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/default.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap4/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap4/bootstrap.min.js') }}"></script>
 <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
     <script src="{{ url_for('static', filename='fonts.js') }}"></script>
     {% endblock %}
     {% block head_style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='reset.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='custom.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap4/bootstrap.min.css') }}">
     {% endblock %}
 </head>
 
@@ -27,6 +30,10 @@
     <header>my cloud</header>
     <a href="my-instances"><i class="fas fa-server fa-sm"></i> my instances</a>
     {% endif %}
+
+        <div class="main_bottom">
+            <span>version {{ version }} &nbsp;&nbsp;<a href="https://github.com/kratos.web/">{{ version_sha }}</a></span>
+    </div>
 
 </div>
 
@@ -42,6 +49,17 @@
     </div>
 
     <div class="main_">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="position:absolute;left: calc(50% + 110px);transform: translate(-50%, 0);">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <!-- <strong>Title</strong> --> {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
         <h1>{% block header %}{% endblock %}</h1>
         <p>
             {% block content %}{% endblock %}

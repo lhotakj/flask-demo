@@ -1,11 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+from app.config import Configuration
 
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
 
+config = Configuration.Configuration()
+
 
 def skeleton(template, **kwargs):
+    kwargs["version"] = config.version
+    kwargs["version_sha"] = config.version_sha
     return render_template(template_name_or_list=template, **kwargs)
 
 

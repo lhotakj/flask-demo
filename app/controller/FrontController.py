@@ -42,7 +42,8 @@ class FrontController:
                 session['username'] = request.form['username']
                 session['full_name'] = "Antonius Blbus"
             else:
-                flash('wrong password!')
+                flash(message='Invalid credentials! Make sure you use your OAAD account in format AB123',
+                      category='danger')
         return helper.skeleton(template="login.html", title="login")
 
 
