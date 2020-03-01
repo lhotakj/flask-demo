@@ -10,6 +10,7 @@ config = Configuration.Configuration()
 def skeleton(template, **kwargs):
     kwargs["version"] = config.version
     kwargs["version_sha"] = config.version_sha
+    kwargs["version_url"] = config.version_url
     return render_template(template_name_or_list=template, **kwargs)
 
 

@@ -4,6 +4,7 @@ from flask import Blueprint, request, json
 from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
 from flask import flash, redirect, session, abort
 
+from app.config import Configuration
 from app.helper import helper
 
 
@@ -38,9 +39,23 @@ class FrontController:
     def do_admin_login():
         if request.form and 'password' in request.form and 'username' in request.form:
             if request.form['password'] == 'password' and request.form['username'] == 'admin':
+
+                config = Configuration.Configuration()
+
                 session['logged_in'] = True
                 session['username'] = request.form['username']
                 session['full_name'] = "Antonius Blbus"
+
+                welcome_role = ""
+                session['admin'] = False
+
+                if session['username'] in config.admin_users:
+                    session['admin'] = True
+                    welcome_role = " administrator "
+
+                flash(message=f'Welcome {welcome_role}{session["full_name"]}, you have been successfully logged in',
+                      category='success')
+
             else:
                 flash(message='Invalid credentials! Make sure you use your OAAD account in format AB123',
                       category='danger')
