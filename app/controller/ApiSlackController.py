@@ -1,14 +1,10 @@
-from flask import request
-from flask import render_template
-from flask import Blueprint, request, json
-from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
-from flask import flash, redirect, session, abort
-import os
+from flask import json
 import slack
-import time
+from flask import json
+from flask import request, make_response, jsonify
 
-from app.helper import helper
 from app.config import Configuration
+from app.helper import helper
 
 
 # https://api.slack.com/apps/ATPCVD9JN/general?  tokens
@@ -62,9 +58,10 @@ class ApiSlackController:
         if "greetings" in command:
             return "Greetings!"
         return "Sorry, I don't understand :no_mouth:"
+
     # http://www.bannedwordlist.com/lists/swearWords.txt
 
-#    @helper.only_get_method
+    #    @helper.only_get_method
     def slack_event(self):
         if request.method == 'GET':
             return helper.skeleton(template="api-error.html", title="API error")
@@ -98,7 +95,7 @@ class ApiSlackController:
                     print("slack_event done")
         return make_response(jsonify({'success': True}), 200, {"content_type": "application/json"})
 
-#    @helper.only_get_method
+    #    @helper.only_get_method
     def slack_command(self, command):
         if request.method == 'GET':
             return helper.skeleton(template="api-error.html", title="API error")
