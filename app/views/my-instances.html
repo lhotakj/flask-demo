@@ -2,7 +2,108 @@
 {% block header %}{{ title }}{% endblock %}
 {% block title %}{{ title }}{% endblock %}
 
+{% block head_script %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+
+{% endblock %}
+
 {% block content %}
 hello
-see my instances
+
+<div style="width:500px; height:300px">
+    <canvas id="canvas" style="width:500px; height:300px"></canvas>
+</div>
+<script>
+    var lineChartData = {
+        labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'],
+        datasets: [
+            {
+                label: 'Memory',
+                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.red,
+                fill: false,
+                data: [
+                    12,
+                    6,
+                    3,
+                    6,
+                    10,
+                    16,
+                    20, 22, 23, 50, 55,
+                    20, 21, 23, 18, 87,
+                    80, 21, 93, 18, 17, 16, 15, 13, 12
+                ], yAxisID: 'Memory usage',
+            }, {
+                label: 'CPU',
+                borderColor: window.chartColors.blue,
+                backgroundColor: window.chartColors.blue,
+                fill: false,
+                data: [
+                    90, 20, 50, 1, 98, 99,
+                    96, 99, 99, 99, 100,
+                    96, 99, 99, 99, 100,
+                    96, 99, 99, 99, 100, 100, 100, 99, 98
+                ], yAxisID: 'CPU usage'
+            }, {
+                label: 'Swap',
+                borderColor: window.chartColors.orange,
+                backgroundColor: window.chartColors.orange,
+                fill: false,
+                data: [
+                    21, 20, 10, 1, 20, 18,
+                    13, 12, 15, 16, 19,
+                    20, 19, 20, 23, 22,
+                    13, 12, 15, 26, 19, 19, 16, 20, 20
+                ], yAxisID: 'Memory swap'
+            }]
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('canvas').getContext('2d');
+        window.myLine = Chart.Line(ctx, {
+            data: lineChartData,
+            options: {
+                responsive: true,
+                hoverMode: 'index',
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: true,
+                title: {
+                    display: true,
+                    text: 'instance id-e315467afa'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: 'left',
+                        id: 'Memory usage',
+                    }, {
+                        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: 'right',
+                        id: 'CPU usage',
+                        gridLines: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    }, {
+                        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: 'left',
+                        id: 'Memory swap',
+                        gridLines: {
+                            drawOnChartArea: true, // only want the grid lines for one axis to show up
+                        },
+                    }
+                    ],
+                }
+            }
+        });
+    };
+
+</script>
+
 {% endblock %}
