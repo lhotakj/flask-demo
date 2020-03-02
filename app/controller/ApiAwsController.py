@@ -1,13 +1,5 @@
-from flask import request
-from flask import render_template
-from flask import Blueprint, request, json
-from flask import Flask, request, render_template, send_from_directory, make_response, jsonify
-from flask import flash, redirect, session, abort
-import os
-import slack
-import time
+from flask import make_response, jsonify
 
-from app.helper import helper
 from app.config import Configuration
 
 
@@ -18,7 +10,7 @@ class ApiAwsController:
         pass
 
     def list_ec2_tags(self, tags):
-        self.config.logger().info(request.method + " " + request.url)
+        # self.config.logger().info(request.method + " " + request.url)
         return make_response(jsonify(
             {
                 "data": [
