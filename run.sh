@@ -4,6 +4,9 @@ export FLASK_APP=./app/app.py
 export FLASK_DEBUG=1
 export VERIFICATION_TOKEN=***DUMMY***
 export SLACK_API_TOKEN=***DUMMY****
+export LOG_FOLDER=/var/log/kratos-web
+
+./mkdir_log.sh
 
 echo "Running GUNICORN ..."
 gunicorn --bind 0.0.0.0:5000 app.app:app

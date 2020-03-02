@@ -18,6 +18,7 @@ class ApiAwsController:
         pass
 
     def list_ec2_tags(self, tags):
+        self.config.logger().info(request.method + " " + request.url)
         return make_response(jsonify(
             {
                 "data": [

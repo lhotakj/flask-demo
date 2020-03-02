@@ -7,9 +7,11 @@
     <meta name="author" content="jaroslav lhotak">
     {% block head_script %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery.min.js') }}"></script>
+<!--    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jquery.cookie.js') }}"></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/default.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap4/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap4/bootstrap.min.js') }}"></script>
+
     <script src="{{ url_for('static', filename='fonts.js') }}"></script>
     {% endblock %}
     {% block head_style %}
@@ -21,13 +23,13 @@
 
 <body>
 <div class="sidenav">
-    <a href="/"><i class="fa fa-tachometer fa-sm"></i> tactical overview</a>
-    <a href="how-to"><i class="fas fa-question-circle"></i> how to</a>
-    <a href="monitoring"><i class="fas fa-wave-square"></i> monitoring</a>
+    <a href="/"><i class="fa fa-tachometer fa-sm"></i> <span>tactical overview</span></a>
+    <a href="how-to"><i class="fas fa-question-circle"></i> <span>how to</span></a>
+    <a href="monitoring"><i class="fas fa-wave-square"></i> <span>monitoring</span></a>
 
     {% if session.get('logged_in') %}
     <header>my cloud</header>
-    <a href="my-instances"><i class="fas fa-server fa-sm"></i> my instances</a>
+    <a href="my-instances"><i class="fas fa-server fa-sm"></i> <span>my instances</span></a>
     {% endif %}
 
         <div class="main_bottom">
@@ -39,11 +41,13 @@
 <div class="main">
 
     <div class="navbar">
+        <span id="toggle" class="align-left" title="Hide / show menu"><i class="fas fa-toggle-on" id="toggler" ></i></span>
+
         {% if not session.get('logged_in') %}
         <a href="/login"> <i class="fas fa-user fa-sm"></i> login</a>
         {% else %}
         <a href="/logout"> <i class="fas fa-power-off fa-sm"></i> logout</a>
-        <span title="a"> <i class="fa fa-user-circle-o"></i>{{ session.get('username') }} ({{ session.get('full_name') }})</span>
+        <span title="{{ session.get('full_name') }}"> <i class="fa fa-user-circle-o"></i>{{ session.get('username') }} ({{ session.get('full_name') }})</span>
         {% endif %}
     </div>
 

@@ -1,5 +1,8 @@
+import logging.handlers
+import logging.handlers
 import os
 import subprocess
+from logging.handlers import RotatingFileHandler
 
 
 class Singleton(type):
@@ -105,3 +108,29 @@ class Configuration(object):
     @property
     def admin_users(self):
         return self._admin_users
+
+    @staticmethod
+    def logger():
+        file = os.path.join(os.environ.get("LOG_FOLDER", "/tmp/kratos-web"), "default.log")
+        level = os.environ.get("LOG_LEVEL", "INFO")
+        logger = logging.getLogger(__name__)
+        handler = RotatingFileHandler(file, maxBytes=2000, backupCount=10)
+        logger.setLevel(logging.DEBUG)
+        level_o = logging.DEBUG
+
+        if level == "DEBUG": level_o = logging.DEBUG
+        if level == "INFO": level_o = logging.INFO
+        if level == "ERROR": level_o = logging.ERROR
+        if level == "WARNING": level_o = logging.WARNING
+
+        logging.basicConfig(
+            filename=file,
+            level=level_o,
+            format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S',
+        )
+
+        logger.handlers.clear()
+        #logger.addHandler(handler)
+
+        return logger
