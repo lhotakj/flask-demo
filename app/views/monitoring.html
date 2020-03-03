@@ -11,33 +11,47 @@
 
 <script>
 
-function get_action(data) {
- action = ""
- if (data.status == "running") action = "<a href='/api/ec2/stop/" +  data.instance_id + "'>stop</a>"
- if (data.status == "stopped") action = "<a href='/api/ec2/start/" +  data.instance_id + "'>start</a>"
- if (data.status == "terminating") action = ""
- if (data.status == "starting") action = ""
- if (data.status == "stopping") action = ""
- return action
-}
+    function get_action(data) {
+        action = ""
+        if (data.status == "running") action = "<a class='monitoring-item' data-action='stop' data-id='" + data.instance_id + "' href='#'><i class='fas fa-stop'></i>stop</a>"
+        if (data.status == "stopped") action = "<a class='monitoring-item' data-action='start' data-id='" + data.instance_id + "' href='#'><i class='fas fa-play'></i>stop</a>"
+        if (data.status == "terminating") action = ""
+        if (data.status == "starting") action = ""
+        if (data.status == "stopping") action = ""
+        return action
+    }
 
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "ajax": '/api/ec2/tags/owner:za577',
-        columns: [
-            { data: "name"  },
-            { data: "instance_id"  },
-            { data: "ami_id" },
-            { data: "owner" },
-            { data: "cpu" },
-            { data: "status" },
+    function load_data() {
 
-            { data: null, render: function ( data, type, row ) {
-                return get_action(data);
-            } }
-        ]
-    } );
-} );
+        $('#example').DataTable({
+            destroy: true,
+            "ajax": '{{ url_for("api_aws.list_ec2_tags",tags="") }}/owner:za577',
+            "fnInitComplete": function (oSettings, json) {
+
+                $("a.monitoring-item").click(function () {
+                    window.call_api('{{ url_for("api_aws.action_ec2",action="") }}' + $(this).data("action"), {instance_id: $(this).data("id")}, 'Request to ' + $(this).data("action") + ' the instance ' + $(this).data("id") + ' has been successfully send.')
+                });
+            },
+            columns: [
+                {data: "name"},
+                {data: "instance_id"},
+                {data: "ami_id"},
+                {data: "owner"},
+                {data: "cpu"},
+                {data: "status"},
+                {
+                    data: null, render: function (data, type, row) {
+                        return get_action(data);
+                    }
+                }
+            ]
+        });
+    }
+
+    $(document).ready(function () {
+        load_data()
+
+    });
 
 </script>
 {% endblock %}
@@ -59,6 +73,7 @@ $(document).ready(function() {
         </tr>
         </thead>
     </table>
+    <a href="#" onclick="load_data();"><i class="fas fa-sync"></i>refresh data</a>
 </div>
 
 {% endblock %}

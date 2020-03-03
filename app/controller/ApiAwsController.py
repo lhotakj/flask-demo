@@ -9,6 +9,11 @@ class ApiAwsController:
     def __init__(self):
         pass
 
+    def action_ec2(self, action):
+        return make_response(jsonify(
+            {}
+        ), 200, {"content_type": "application/json"})
+
     def list_ec2_tags(self, tags):
         # self.config.logger().info(request.method + " " + request.url)
         return make_response(jsonify(
