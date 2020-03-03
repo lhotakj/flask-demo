@@ -1,3 +1,5 @@
+![Python package](https://github.com/lhotakj/flask-demo/workflows/Python%20package/badge.svg?event=push)
+
 # MVC Flask demo hosted on heroku
 
 A simple demo MVC flask, for handling Slack commands and events and provide a simplified admin consoled to manage AWS instances (skeleton only, no boto3 code) with sample graphs.
