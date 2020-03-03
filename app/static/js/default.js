@@ -106,8 +106,7 @@ function auto_hide_flesh() {
     }, 5000);
 }
 
-
-//TODO: move to shared js
+// -- called from DataTable code
 function flesh(type, text) {
     const html = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert" style="position:absolute;left: calc(50% + 110px);transform: translate(-50%, 0);"> <button type="button" class="close" onclick="window.auto_hide_flesh()" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + text + ' </div>';
     $j(".main_").prepend(html);
