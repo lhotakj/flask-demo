@@ -43,12 +43,13 @@ jobs:
           name: SonarQube scan
           command: |
             ~/sonar/sonar-scanner-4.0.0.1744-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=flask-demo \
+              -Dsonar.projectKey=lhotakj_flask-demo \
               -Dsonar.organization=lhotakj-github \
               -Dsonar.sources=. \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.projectVersion=$CIRCLE_BUILD_NUM \
               -Dsonar.login=$SONAR_TOKEN
+    
       
       - store_artifacts:
           path: test-reports
