@@ -1,3 +1,6 @@
+![Python package](https://github.com/lhotakj/flask-demo/workflows/Python%20package/badge.svg?event=push)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lhotakj_flask-demo&metric=alert_status)](https://sonarcloud.io/dashboard?id=lhotakj_flask-demo)
+
 # MVC Flask demo hosted on heroku
 
 A simple demo MVC flask, for handling Slack commands and events and provide a simplified admin consoled to manage AWS instances (skeleton only, no boto3 code) with sample graphs.

@@ -1,0 +1,56 @@
+# Python CircleCI 2.0 configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: Download Sonar
+          command: |
+            mkdir -p /tmp/sonar
+            mkdir -p ~/sonar
+            cd /tmp/sonar
+            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-linux.zip
+            unzip -qq ./sonar-scanner-cli-4.0.0.1744-linux.zip -d ~/sonar/
+            rm -rf /tmp/sonar
+  
+      - run:
+          name: SonarQube scan
+          command: |
+            ~/sonar/sonar-scanner-4.0.0.1744-linux/bin/sonar-scanner \
+              -Dsonar.projectKey=lhotakj_flask-demo \
+              -Dsonar.organization=lhotakj-github \
+              -Dsonar.sources=. \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.projectVersion=$CIRCLE_BUILD_NUM \
+              -Dsonar.login=$SONAR_TOKEN
+    
+      
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
