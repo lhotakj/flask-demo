@@ -6,79 +6,77 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 <script>
 
-$(document).ready(function() {
+    $j(document).ready(function () {
 
-// chart colors
-var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
 
-/* 3 donut charts */
-var donutOptions = {
-  cutoutPercentage: 65,
-  legend: {position:'bottom', padding:15, labels: {pointStyle:'circle', usePointStyle:true}}
-};
+        var colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
 
-// donut 1
-var chDonutData1 = {
-    labels: ['compilation', 'smoketest', 'development'],
-    datasets: [
-      {
-        backgroundColor: colors.slice(0,3),
-        borderWidth: 0,
-        data: [4, 8, 2]
-      }
-    ]
-};
+        var donutOptions = {
+            cutoutPercentage: 65,
+            legend: {position: 'bottom', padding: 15, labels: {pointStyle: 'circle', usePointStyle: true}}
+        };
 
-var chDonut1 = document.getElementById("chDonut1");
-if (chDonut1) {
-  new Chart(chDonut1, {
-      type: 'pie',
-      data: chDonutData1,
-      options: donutOptions
-  });
-}
+        var chDonutData1 = {
+            labels: ['compilation', 'smoketest', 'development'],
+            datasets: [
+                {
+                    backgroundColor: colors.slice(0, 3),
+                    borderWidth: 0,
+                    data: [4, 8, 2]
+                }
+            ]
+        };
 
-// donut 2
-var chDonutData2 = {
-    labels: ['rint', 'za577', 'ke988'],
-    datasets: [
-      {
-        backgroundColor: colors.slice(0,3),
-        borderWidth: 0,
-        data: [40, 45, 30]
-      }
-    ]
-};
-var chDonut2 = document.getElementById("chDonut2");
-if (chDonut2) {
-  new Chart(chDonut2, {
-      type: 'pie',
-      data: chDonutData2,
-      options: donutOptions
-  });
-}
+        var chDonut1 = document.getElementById("chDonut1");
+        if (chDonut1) {
+            new Chart(chDonut1, {
+                type: 'pie',
+                data: chDonutData1,
+                options: donutOptions
+            });
+        }
 
-// donut 3
-var chDonutData3 = {
-    labels: ['m4.xlarge', 'm2.xlarge', 'm2.2xlarge','m2.16xlarge'],
-    datasets: [
-      {
-        backgroundColor: colors.slice(0,3),
-        borderWidth: 0,
-        data: [21, 45, 55, 33]
-      }
-    ]
-};
-var chDonut3 = document.getElementById("chDonut3");
-if (chDonut3) {
-  new Chart(chDonut3, {
-      type: 'pie',
-      data: chDonutData3,
-      options: donutOptions
-  });
-}
+        var chDonutData2 = {
+            labels: ['rint', 'za577', 'ke988'],
+            datasets: [
+                {
+                    backgroundColor: colors.slice(0, 3),
+                    borderWidth: 0,
+                    data: [40, 45, 30]
+                }
+            ]
+        };
 
-});
+        var chDonut2 = document.getElementById("chDonut2");
+        if (chDonut2) {
+            new Chart(chDonut2, {
+                type: 'pie',
+                data: chDonutData2,
+                options: donutOptions
+            });
+        }
+
+        var chDonutData3 = {
+            labels: ['m4.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.16xlarge'],
+            datasets: [
+                {
+                    backgroundColor: colors.slice(0, 3),
+                    borderWidth: 0,
+                    data: [21, 45, 55, 33]
+                }
+            ]
+        };
+
+        var chDonut3 = document.getElementById("chDonut3");
+        if (chDonut3) {
+            new Chart(chDonut3, {
+                type: 'pie',
+                data: chDonutData3,
+                options: donutOptions
+            });
+        }
+
+    });
 
 </script>
 
@@ -97,7 +95,7 @@ if (chDonut3) {
             </div>
         </div>
         <div class="col-md-4 py-1">
-            <div >
+            <div>
                 <h3>Users</h3>
                 <div class="card-body">
                     <canvas id="chDonut2"></canvas>
@@ -105,7 +103,7 @@ if (chDonut3) {
             </div>
         </div>
         <div class="col-md-4 py-1">
-            <div >
+            <div>
                 <h3>Instance types</h3>
                 <div class="card-body">
                     <canvas id="chDonut3"></canvas>
@@ -116,7 +114,8 @@ if (chDonut3) {
 </div>
 
 <h2>About</h2>
-This is a simple flask MVC demo hosted on Heroku using basic templates and API end point for Slack bot. Third party libraries: <b>jQuery</b>, <b>Bootstrap4</b>, <b>Chart</b>, <b>Popper</b>
+This is a simple flask MVC demo hosted on Heroku using basic templates and API end point for Slack bot. Third party libraries:
+<b>jQuery</b>, <b>Bootstrap4</b>, <b>Chart</b>, <b>Popper</b>
 <br/>
 <br/>
 <h2>Slack bot</h2>
