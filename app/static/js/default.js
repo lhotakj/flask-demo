@@ -38,6 +38,17 @@ function call_api(endpoint, payload, text_success) {
     });
 }
 
+// universal GET method
+function get_api(endpoint, callback) {
+    $j.ajax(endpoint, {
+        type: 'GET',  // http method
+        success: callback,
+        error: function (jqXhr, textStatus, errorMessage) {
+            window.flesh('warning', 'Error. ' + errorMessage)
+        }
+    });
+}
+
 $j(document).ready(function () {
 
     function set_cookie(cname, cvalue, exdays = 30) {
