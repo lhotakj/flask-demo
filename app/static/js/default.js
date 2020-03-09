@@ -39,15 +39,28 @@ function call_api(endpoint, payload, text_success) {
 }
 
 // universal GET method
-function get_api(endpoint, callback) {
+function get_api(endpoint, canvas) {
     $j.ajax(endpoint, {
         type: 'GET',  // http method
-        success: callback,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);  // will display the content of data
+            load(data, canvas)
+        },
         error: function (jqXhr, textStatus, errorMessage) {
             window.flesh('warning', 'Error. ' + errorMessage)
         }
     });
 }
+
+// function get_api(endpoint, callback) {
+//     $j.ajax(endpoint, {
+//         type: 'GET',  // http method
+//         success: callback,
+//         error: function (jqXhr, textStatus, errorMessage) {
+//             window.flesh('warning', 'Error. ' + errorMessage)
+//         }
+//     });
+// }
 
 $j(document).ready(function () {
 

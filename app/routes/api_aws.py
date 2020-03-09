@@ -18,6 +18,6 @@ def action_ec2(action):
     return api_aws_controller.action_ec2(action)
 
 
-@api_aws.route('/api/cloudwatch/<string:tags>', methods=['GET'])
-def cloud_watch_tags(tags):
-    return api_aws_controller.cloud_watch_tags(tags)
+@api_aws.route('/api/cloudwatch/<string:tags>/<string:duration>', methods=['GET'])
+def cloud_watch_tags(tags, duration):
+    return api_aws_controller.cloud_watch_tags(tags, duration)
