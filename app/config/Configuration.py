@@ -24,7 +24,7 @@ class Configuration(object):
 
     _host = '0.0.0.0'
     _port = 5000
-    _version = "1.0"
+    _version = "1.1"
     _version_sha = ""  # read on application start
     _version_url = ""  # read on application start
 
